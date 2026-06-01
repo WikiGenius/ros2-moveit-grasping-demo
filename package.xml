@@ -3,9 +3,9 @@
 <package format="3">
   <name>moveit2_scripts</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
-  <maintainer email="elyamani.muhammed.eng@gmail.com">muhammed</maintainer>
-  <license>TODO: License declaration</license>
+  <description>ROS 2 MoveIt2 scripts for Cartesian approach, gripper control, grasping, and retreat motion planning.</description>
+  <maintainer email="elyamani.muhammed.eng@gmail.com">Muhammed Elyamani</maintainer>
+  <license>Proprietary</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
