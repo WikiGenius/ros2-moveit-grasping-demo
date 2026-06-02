@@ -15,8 +15,6 @@ This repository is intended for ROS2 / MoveIt2 experimentation. The exact tested
 - MoveIt2 version: to be confirmed
 - Simulation or hardware: to be confirmed
 
-The package dependencies in `package.xml` require ROS2 and MoveIt2 libraries, but exact tested versions are not documented yet.
-
 ## Current Runnable Artifact
 
 The package includes C++ executables and launch files for MoveIt2 manipulation development:
