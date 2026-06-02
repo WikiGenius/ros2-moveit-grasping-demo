@@ -1,45 +1,39 @@
 # ROS2 MoveIt Grasping Demo
 
-## Overview
-This repository contains a ROS 2 / MoveIt2 demo for perception-guided robotic grasping. The grasp target is localized using object detection, point-cloud processing, and computer vision, then the localized object pose is used to plan and execute a grasping sequence.
+## Purpose
 
-The execution layer plans arm motion, performs Cartesian approach and retreat motions, and controls a gripper through a repeatable task sequence. The goal is to make a compact public demo that shows how perception output can be connected to MoveIt2 manipulation stages instead of one-off scripts.
+This repository contains a ROS2 / MoveIt2 demo for perception-guided robotic grasping. The grasp target is localized using object detection, point-cloud processing, and computer vision, then the localized object pose is used to plan and execute a grasping sequence.
 
-## Research/Engineering Motivation
-Reliable pick-and-place behavior is a core building block for mobile manipulation, inspection, and autonomous robotic task execution. A robot must not only move to a predefined pose; it must detect or localize the object, transform that pose into the robot planning frame, and execute a safe manipulation sequence.
+The execution layer plans arm motion, performs Cartesian approach and retreat motions, and controls a gripper through a repeatable task sequence. The goal is to show how perception output can connect to MoveIt2 manipulation stages.
 
-This project focuses on the engineering layer between perception and action: using point-cloud / computer-vision object localization to define the grasp target, then planning a safe pre-grasp pose, Cartesian approach, gripper closure, retreat, and return to a known state.
+## Tested Environment
 
-The demo is useful as a small testbed for experimenting with MoveIt2 planning parameters, Cartesian path execution, gripper actions, perception-to-pose interfaces, and reusable ROS 2 node structure.
+The repository contains ROS2 / MoveIt2 C++ package code. The exact external robot description, controller setup, MoveIt2 configuration, and perception stack are environment-dependent.
 
-## Features
-- Perception-guided grasp workflow using object localization from point clouds and computer vision.
-- ROS 2 node structure for arm and gripper control.
-- MoveIt2 motion planning for pre-grasp and home poses.
-- Cartesian approach and retreat stages.
-- Gripper open/close action flow.
-- Modular C++ targets for trajectory tests, gripper tests, approach/retreat behavior, and drawing motions.
-- Demo media showing the manipulation sequence.
+- Ubuntu: needs confirmation
+- ROS 2: required by `package.xml`
+- MoveIt 2: required by `package.xml`
+- Robot model: external robot description and MoveIt2 configuration required
+- Simulation/hardware status: public demo package and media are included; no real-hardware validation is claimed here
 
-## Method
-The task is decomposed into a perception-to-action sequence:
+Update this section with exact versions after a fully documented launch workflow is confirmed.
 
-1. Acquire RGB/depth or point-cloud information from the scene.
-2. Detect or segment the target object using computer vision / point-cloud processing.
-3. Estimate the object pose and transform it into the robot planning frame.
-4. Generate a pre-grasp pose relative to the localized object.
-5. Move the arm to a home configuration.
-6. Open the gripper.
-7. Plan to the pre-grasp pose using MoveIt2.
-8. Execute a Cartesian approach toward the object.
-9. Close the gripper to grasp.
-10. Execute a Cartesian retreat.
-11. Release or return to a safe state.
+## Current Runnable Artifact
 
-The current MoveIt2 execution node consumes a pre-grasp pose and runs the approach/grasp/retreat sequence. In an integrated perception setup, that pose should come from the object detection and point-cloud localization pipeline.
+The package includes C++ executables and launch files for MoveIt2 manipulation development:
 
-## Installation
-Create or enter a ROS 2 workspace, then clone this repository into `src`:
+- `approach_retreat`
+- `test_gripper`
+- `test_trajectory`
+- `test_trajectory2`
+- `test_trajectory3`
+- `draw_x`
+
+These commands require a compatible ROS2 / MoveIt2 workspace, robot model, controllers, planning scene, and any needed perception/object-pose input.
+
+## Build and Run
+
+Create or enter a ROS2 workspace, then clone this repository into `src`:
 
 ```bash
 mkdir -p ~/ros2_ws/src
@@ -51,14 +45,19 @@ colcon build --packages-select moveit2_scripts
 source install/setup.bash
 ```
 
-## Run
-Build and source the workspace first, then run one of the available executables:
+Run the approach/retreat executable:
 
 ```bash
 ros2 run moveit2_scripts approach_retreat
 ```
 
-Other development/test executables in this package include:
+Or use the related launch file:
+
+```bash
+ros2 launch moveit2_scripts approach_retreat.launch.py
+```
+
+Other development/test executables:
 
 ```bash
 ros2 run moveit2_scripts test_gripper
@@ -68,22 +67,47 @@ ros2 run moveit2_scripts test_trajectory3
 ros2 run moveit2_scripts draw_x
 ```
 
+Related launch files:
+
+```bash
+ros2 launch moveit2_scripts test_gripper.launch.py
+ros2 launch moveit2_scripts test_trajectory.launch.py
+ros2 launch moveit2_scripts test_trajectory2.launch.py
+ros2 launch moveit2_scripts test_trajectory3.launch.py
+ros2 launch moveit2_scripts draw_x.launch.py
+```
+
 The exact launch sequence depends on the robot description, MoveIt2 configuration, controllers, perception stack, camera/depth sensor, and simulation environment used with the package.
 
-## Results
+## What This Demonstrates
+
+- Perception-guided grasp workflow using object localization from point clouds and computer vision.
+- ROS2 node structure for arm and gripper control.
+- MoveIt2 motion planning for pre-grasp and home poses.
+- Cartesian approach and retreat stages.
+- Gripper open/close action flow.
+- Modular C++ targets for trajectory tests, gripper tests, approach/retreat behavior, and drawing motions.
+
 A demonstration GIF is included in the repository:
 
 <img alt="ROS2 MoveIt grasping demo" src="./images/demo.gif" width="640">
 
 ## Limitations
+
 - This is a simplified public demo, not a full production grasping pipeline.
 - The public MoveIt2 node focuses on grasp execution after an object pose is available.
 - Perception accuracy depends on camera calibration, point-cloud quality, object segmentation, frame transforms, and scene conditions.
 - Robust grasp synthesis, perception uncertainty handling, and dynamic collision-scene updates should be expanded in future work.
 - Robot-specific controllers and MoveIt2 configuration may need to be adapted for a different arm or gripper.
 - Safety checks should be expanded before running on physical hardware.
+- No real-hardware validation is claimed in this README.
+
+## Relation to My Research Direction
+
+Reliable grasp execution is a building block for mobile manipulation, inspection, and active scanning. This repo supports the execution layer of the research portfolio by showing how localized perception outputs can be connected to robot motion planning, Cartesian motion stages, gripper control, and repeatable ROS2 / MoveIt2 task structure.
 
 ## Roadmap
+
 - [ ] Add a launch-first demo workflow.
 - [ ] Add perception interface notes for object pose input.
 - [ ] Add point-cloud / computer-vision localization example or diagram.
@@ -93,9 +117,11 @@ A demonstration GIF is included in the repository:
 - [ ] Add a short report or technical note explaining the perception-to-grasp pipeline.
 
 ## Citation / Acknowledgment
-This project uses ROS 2 and MoveIt2. Please cite or acknowledge ROS 2, MoveIt2, and any robot-specific packages used when building on this work.
+
+This project uses ROS2 and MoveIt2. Please cite or acknowledge ROS2, MoveIt2, and any robot-specific packages used when building on this work.
 
 Knowledge and practical ROS/robotics course experience from [The Construct](https://www.theconstruct.ai/) helped support the learning behind this demo. The Construct provides ROS and robotics learning resources, courses, and hands-on training for robotics developers.
 
 ## Related Documentation
+
 See [`docs/perception-to-grasp-pipeline.md`](docs/perception-to-grasp-pipeline.md) for the object-localization and grasp-execution pipeline summary.
