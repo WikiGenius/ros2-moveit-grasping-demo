@@ -8,15 +8,14 @@ The execution layer plans arm motion, performs Cartesian approach and retreat mo
 
 ## Tested Environment
 
-The repository contains ROS2 / MoveIt2 C++ package code. The exact external robot description, controller setup, MoveIt2 configuration, and perception stack are environment-dependent.
+This repository is intended for ROS2 / MoveIt2 experimentation. The exact tested setup should be confirmed before claiming reproducibility.
 
-- Ubuntu: needs confirmation
-- ROS 2: required by `package.xml`
-- MoveIt 2: required by `package.xml`
-- Robot model: external robot description and MoveIt2 configuration required
-- Simulation/hardware status: public demo package and media are included; no real-hardware validation is claimed here
+- Ubuntu: to be confirmed
+- ROS2 distribution: to be confirmed
+- MoveIt2 version: to be confirmed
+- Simulation or hardware: to be confirmed
 
-Update this section with exact versions after a fully documented launch workflow is confirmed.
+The package dependencies in `package.xml` require ROS2 and MoveIt2 libraries, but exact tested versions are not documented yet.
 
 ## Current Runnable Artifact
 
