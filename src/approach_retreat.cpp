@@ -11,7 +11,10 @@ int main(int argc, char **argv) {
   // Create an instance of the ApproachAndRetreatNode
   ApproachAndRetreatNode approach_and_retreat(node_options);
 
-  // Define the pre-grasp pose
+  // Example pre-grasp pose.
+  // In the integrated perception-guided workflow, replace these values with a
+  // pose from object detection and point-cloud / computer-vision localization,
+  // transformed into the MoveIt planning frame.
   double x = 0.232;
   double y = -0.010;
   double z = 0.334;
