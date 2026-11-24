@@ -2,11 +2,11 @@
 
 ## Purpose
 
-This repository contains a ROS2 / MoveIt2 demo for perception-guided robotic grasping. The grasp target is localized using object detection, point-cloud processing, and computer vision, then the localized object pose is used to plan and execute a grasping sequence.
+This repository contains a ROS2 / MoveIt2 demo for perception-guided robotic grasping. The original workflow uses object detection, point-cloud processing, and computer vision to localize a target. The public package focuses on planning and executing a grasp sequence after a target pose is available.
 
 The execution layer plans arm motion, performs Cartesian approach and retreat motions, and controls a gripper through a repeatable task sequence. The goal is to show how perception output can connect to MoveIt2 manipulation stages.
 
-## Tested Environment
+## Environment and reproducibility
 
 This repository is intended for ROS2 / MoveIt2 experimentation. The exact tested setup should be confirmed before claiming reproducibility.
 
